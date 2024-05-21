@@ -17,11 +17,10 @@ class PayReadyView(APIView):
   def post(self, request):
     pay_data = request.data
     pay_data['cid'] = cid
-    print("pay_data: ", pay_data)
-    headers = {
-      'Content-type': 'application/json',
+    pay_header = {
+      'Content-Type': 'application/json',
       'Authorization': f'SECRET_KEY {pay_key}'
     }
-    response = requests.post(payready_url, headers=headers, data=json.dumps(pay_data))
-    print("response: ", response.json())
+    pay_data = json.dumps(pay_data)
+    response = requests.post(payready_url, headers=pay_header, data=pay_data)
     return Response(response.json(), status=response.status_code)
