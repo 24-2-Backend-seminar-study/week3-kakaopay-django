@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'pay'
 ]
 
 MIDDLEWARE = [
@@ -152,3 +153,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN': 'access_token',
     'REFRESH_TOKEN': 'refresh_token',
 }
+
+KAKAO_PAY__KEY = env('KAKAO_PAY_KEY')
+CID = env('CID')
