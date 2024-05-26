@@ -10,3 +10,6 @@ class Pay(models.Model):
   partner_user_id = models.CharField(max_length=100, default='')
   created_at = models.DateTimeField(default=timezone.now)
   buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pay_buyer', null=True)
+  item_name = models.CharField(max_length=100, default='')
+  item_amount = models.IntegerField(default=0)
+  total_amount = models.IntegerField(default=0)
