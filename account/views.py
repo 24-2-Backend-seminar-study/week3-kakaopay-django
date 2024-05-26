@@ -14,8 +14,8 @@ def set_token_on_response_cookie(user, status_code) -> Response:
     token = RefreshToken.for_user(user)
     user = UserSerializer(user).data
     res = Response(user, status=status_code)
-    res.set_cookie("refresh_token", value=str(token), httponly=True)
-    res.set_cookie("access_token", value=str(token.access_token), httponly=True)
+    res.set_cookie("refresh_token", value=str(token))
+    res.set_cookie("access_token", value=str(token.access_token))
     return res
 
 class SignUpView(APIView):
