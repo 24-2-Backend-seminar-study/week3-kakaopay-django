@@ -17,6 +17,11 @@ cid = settings.CID
 payready_url = 'https://open-api.kakaopay.com/online/v1/payment/ready'
 payapprove_url = 'https://open-api.kakaopay.com/online/v1/payment/approve'
 
+pay_header = {
+      'Content-Type': 'application/json',
+      'Authorization': f'SECRET_KEY {pay_key}'
+    }
+
 class PayReadyView(APIView):
   def post(self, request):
     pay_data = request.data
@@ -24,10 +29,6 @@ class PayReadyView(APIView):
     if not buyer.is_authenticated:
       return Response({"detail": "please signin."}, status=status.HTTP_401_UNAUTHORIZED)
     pay_data['cid'] = cid
-    pay_header = {
-      'Content-Type': 'application/json',
-      'Authorization': f'SECRET_KEY {pay_key}'
-    }
     pay_data = json.dumps(pay_data)
     response = requests.post(payready_url, headers=pay_header, data=pay_data)
     response_data = response.json()
@@ -50,10 +51,6 @@ class PayApproveView(APIView):
     tid = request.data['tid']
     pay_hist = Pay.objects.get(tid=tid)
     print(pg_token, tid)
-    pay_header = {
-      'Content-Type': 'application/json',
-      'Authorization': f'SECRET_KEY {pay_key}'
-    }
     pay_data = {
       'cid': cid,
       'tid': tid,
